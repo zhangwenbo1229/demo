@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="cn-zh">
+<script>
+    var start = new Date().getTime();
+</script>
+
+<head>
+    <meta charset="UTF-8">
+    <title>搜索结果展示</title>
+</head>
+
+<body>
+    <center>
+
+
+
+
+        <hr>
+        <h1>搜索结果展示</h1>
+
+        <table border="1px" width="500px">
+            <tr style="text-align:center">
+                <th>序号</th>
+
+                <th>图片简介</th>
+
+            </tr>
+
+
+            {% for i in data %}
+            <tr style="text-align:center">
+
+                <td>
+                    <img src=" {{ i.image_url }} " alt="picture.jpg" </td>
+
+                <td>
+                    {{ i.image_des }}
+                </td>
+                {% endfor %}
+        </table>
+
+
+       {% if show_shouye_status==1%}
+           <a href='{{ url_for('search', page=1,word = word)}}'>首页</a>
+           <a href='{{ url_for('search', page=page-1,word = word)}}'>上一页</a>
+      {%endif%}
+
+       {% for dic in dic_list %}
+           {% if dic==page %}
+             <a href='{{ url_for('search', page=dic,word = word)}}'>{{dic}}</a>
+           {%else%}
+               <a href='{{ url_for('search',page=dic,word = word)}}'>{{dic}}</a>
+           {%endif%}
+        {%endfor%}
+
+       {% if page < total %}
+            <a href='{{ url_for('search',page=page + 1,word = word)}}'>下一页</a>
+            <a href='{{ url_for('search',page=total,word = s)}}'>尾页</a>
+       {%endif%}
+            共{{total}}页
+
+
+        <hr>
+
+
+
+        <h1>一共搜索到 {{ count }} 个结果</h1>
+
+        <h1>搜索所耗费时间：
+            <script>
+                var end = new Date().getTime();
+                document.write(end - start);//在页面上显示程序运行时间
+            </script>毫秒</h1>
+
+
+    </center>
+</body>
+
+</html>
